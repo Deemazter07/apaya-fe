@@ -3,8 +3,21 @@ import Discover from "../components/Discover";
 import Jumbotron from "../components/Jumbotron";
 import Navbar from "../components/Navbar";
 import Image from "next/image";
+import { getArticleList } from "@/controller/articles.controller";
 
-export default function Home() {
+export async function getServerSideProps() {
+  const params = {
+    pageNumber: 1,
+    pageSize: 10,
+  };
+
+  const { data: articleList } = await getArticleList(params);
+
+  // Pass data to the page via props
+  return { props: { articles: articleList.data.rows } };
+}
+
+export default function Home({ articles }) {
   return (
     <div>
       {/* Navbar Section */}
@@ -21,7 +34,7 @@ export default function Home() {
 
       {/* Article List Section */}
       <div className="mx-auto">
-        <LatestArticle />
+        <LatestArticle articles={articles} />
       </div>
 
       <div className="h-96 bg-black mt-96"></div>
