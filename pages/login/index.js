@@ -1,12 +1,13 @@
 "use client"
 import LoginCard from "@/components/card/LoginCard";
+import { ENV } from "@/utils/env";
 import axios from "axios";
 import React from "react";
 
 export default function Login({ closeLogin }) {
     const [input, setInput] = React.useState({})
     // console.log(input);
-const host = env
+const host = ENV.API_HOST;
 
     const handleChangeInput = (event) => {
         const name = event.target.name;
