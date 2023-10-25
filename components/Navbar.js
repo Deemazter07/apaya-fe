@@ -1,4 +1,6 @@
 "use client"; // This is a client component 👈🏽
+import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
@@ -28,7 +30,6 @@ export default function Navbar() {
   }, []);
 
   const pathName = usePathname();
-
   const handleScroll = () => {
     if (window.scrollY > 150) {
       setNavbarStyle({
@@ -72,6 +73,23 @@ export default function Navbar() {
     },
   ];
 
+// LoginButton
+const [loginButton, setLoginButton] = useState(false)
+const OpenLoginButton = () => {
+  setLoginButton(true)
+  setSignupButton(false)
+}
+const CloseLoginButton = () => {
+  setLoginButton(false)
+}
+const [signupButton, setSignupButton] = useState(false)
+const OpenSignupButton = () => {
+  setSignupButton(true)
+  setLoginButton(false)
+}
+const CloseSignupButton = () => {
+  setSignupButton(false)
+}
   return (
     <nav
       className={`fixed ${navbar} w-full z-20 top-0 left-0 transition duration-300 ease-in-out font-montserrat`}
@@ -84,13 +102,17 @@ export default function Navbar() {
             alt="Flowbite Logo"
           /> */}
           <span className="self-center text-lg whitespace-nowrap p-6">
-            ApaYa
+            ApaYa?
           </span>
         </a>
         <div className="flex md:order-2">
-          <a href="#" className={`${getStarted} no-underline hover:underline `}>
-            Get started
-          </a>
+          {/* LOGIN */}
+          {signupButton ? <Signup closeSignup={CloseSignupButton} OpenLoginButton={OpenLoginButton}/> : ''}
+          {loginButton ? <Login closeLogin={CloseLoginButton} OpenSignupButton={OpenSignupButton}/> : ''}
+          {/* LOGIN */}
+          <button onClick={OpenLoginButton} className={`${getStarted} no-underline hover:underline `}>
+            login
+          </button>
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"

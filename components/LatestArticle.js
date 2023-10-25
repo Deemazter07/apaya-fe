@@ -1,3 +1,5 @@
+"use client";
+import axios from "axios";
 import React from "react";
 import ArticleCard from "./card/ArticleCard";
 import {
@@ -26,6 +28,17 @@ export default function LatestArticle({ articles = [] }) {
     return cleanContent;
   }
 
+  // const FetchData = () => axios
+  //   .get("https://dummyjson.com/posts")
+  //   .then(function (response) {
+  //     // handle success
+  //     // console.log(response.data.posts);
+  //     setPosts(response.data.posts);
+  //   })
+  //   .catch(function (error) {
+  //     // handle error
+  //     console.log(`err ${error}`);
+  //   });
   return (
     <>
       <section className="container mx-auto mt-28">

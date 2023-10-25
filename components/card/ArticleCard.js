@@ -10,7 +10,7 @@ export default function ArticleCard({
 }) {
   return (
     <div
-      className={`bg-white cursor-pointer border border-gray-200 shadow-2xl custom-card flex flex-col justify-between transform transition duration-500 hover:-translate-y-4 hover:shadow ${classes}`}
+      className={`flex-initial w-64 bg-white cursor-pointer border border-gray-200 shadow-2xl custom-card flex flex-col justify-between transform transition duration-500 hover:-translate-y-4 hover:shadow ${classes}`}
     >
       <div>
         <Image src={image} alt={title} fill objectFit="cover" />
