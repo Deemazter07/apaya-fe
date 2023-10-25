@@ -1,11 +1,11 @@
 "use client";
-import LoginCard from "@/components/card/LoginCard";
 import axios from "axios";
 import { ENV } from "@/utils/env";
 import React from "react";
 import { useRouter } from "next/router";
+import SignupCard from "@/components/card/SignupCard";
 
-export default function Login({ closeLogin, OpenSignupButton }) {
+export default function Signup({ closeSignup, OpenSignupButton, OpenLoginButton }) {
   // const router = useRouter();
 
   const [input, setInput] = React.useState({});
@@ -22,21 +22,15 @@ export default function Login({ closeLogin, OpenSignupButton }) {
     event.preventDefault();
     console.log(`isi input Email: ${input.email}`);
     try {
-      const { dataLogin } = await axios.post(`${host}auth/login`, {
+      const { data } = await axios.post(`${host}auth/login`, {
         emailPhone: input.email,
         password: input.password,
       });
-      // console.log(`data`, data.data.jwt);
-        try {
-          const { data } = await axios.post(`${host}auth/me`, {
-            headers : {authorization: dataLogin.data.jwt}
-          });
-          console.log(`data`, data);
-          // sessionStorage.setItem("user", JSON.stringify(data.data));
-        } catch (error) {
-          console.log("login gagal", error);
-          throw error;
-        }
+      sessionStorage.setItem("user", JSON.stringify(data.data));
+      // if (sessionStorage.getItem("user")) {
+      //   router.push("/");
+      // }
+      console.log(`data`, data);
     } catch (error) {
       console.log("login gagal", error);
       throw error;
@@ -44,12 +38,13 @@ export default function Login({ closeLogin, OpenSignupButton }) {
   };
   return (
     <div className="absolute translate-y-1/2 translate-x-1/2 top-0 right-1/2">
-      <LoginCard
-        closeLogin={closeLogin}
+      <SignupCard
+        closeSignup={closeSignup}
         cekInput={setInput}
         handleChangeInput={handleChangeInput}
         handleSubmitInput={handleSubmitInput}
         OpenSignupButton={OpenSignupButton}
+        OpenLoginButton={OpenLoginButton}
       />
     </div>
   );

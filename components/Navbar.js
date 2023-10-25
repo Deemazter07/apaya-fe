@@ -1,5 +1,6 @@
 "use client"; // This is a client component 👈🏽
 import Login from "@/pages/login";
+import Signup from "@/pages/signup";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/router";
@@ -74,12 +75,20 @@ export default function Navbar() {
 
 // LoginButton
 const [loginButton, setLoginButton] = useState(false)
-// console.log(`loginButton ${loginButton}`);
 const OpenLoginButton = () => {
   setLoginButton(true)
+  setSignupButton(false)
 }
 const CloseLoginButton = () => {
   setLoginButton(false)
+}
+const [signupButton, setSignupButton] = useState(false)
+const OpenSignupButton = () => {
+  setSignupButton(true)
+  setLoginButton(false)
+}
+const CloseSignupButton = () => {
+  setSignupButton(false)
 }
   return (
     <nav
@@ -98,7 +107,8 @@ const CloseLoginButton = () => {
         </a>
         <div className="flex md:order-2">
           {/* LOGIN */}
-          {loginButton ? <Login closeLogin={CloseLoginButton}/> : ''}
+          {signupButton ? <Signup closeSignup={CloseSignupButton} OpenLoginButton={OpenLoginButton}/> : ''}
+          {loginButton ? <Login closeLogin={CloseLoginButton} OpenSignupButton={OpenSignupButton}/> : ''}
           {/* LOGIN */}
           <button onClick={OpenLoginButton} className={`${getStarted} no-underline hover:underline `}>
             login
